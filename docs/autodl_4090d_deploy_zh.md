@@ -72,7 +72,7 @@ git push origin HEAD
 
 ```bash
 cd ~/autodl-tmp
-git clone <你的仓库地址> Diff-MoE
+git clone https://github.com/Yuelinfeng/Diff-MoE.git Diff-MoE
 cd Diff-MoE
 git submodule update --init --recursive
 ```

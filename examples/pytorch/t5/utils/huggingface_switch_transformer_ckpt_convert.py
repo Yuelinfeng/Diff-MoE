@@ -14,7 +14,6 @@
 
 import argparse
 import configparser
-import multiprocessing
 from datetime import datetime
 import logging
 from pathlib import Path
@@ -22,6 +21,7 @@ from pathlib import Path
 import sys
 import os
 import re
+import gc
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(dir_path + "/../../../../3rdparty/transformers/src/")
@@ -56,6 +56,17 @@ def get_weight_data_type(data_type):
         return np.float16
     else:
         assert False, f"Invalid weight data type {data_type}"
+
+
+def get_from_pretrained_kwargs(cache_dir, local_files_only, low_cpu_mem_usage):
+    kwargs = {
+        "resume_download": not local_files_only,
+        "cache_dir": cache_dir,
+        "local_files_only": local_files_only,
+    }
+    if low_cpu_mem_usage:
+        kwargs["low_cpu_mem_usage"] = True
+    return kwargs
 
 
 def fuse_decoder_qkv(model, factor, saved_dir, np_weight_data_type):
@@ -195,17 +206,30 @@ def split_and_convert_process(key, val, factor, saved_dir):
         LOGGER.warning(f"cannot find key '{key}' with shape {val.shape}")
 
 
+def convert_and_write_tensor(key, param, factor, saved_dir, np_weight_data_type):
+    val = param.cpu().detach().numpy().astype(np_weight_data_type)
+    split_and_convert_process(key, val, factor, saved_dir)
+    del val
+
+
+def convert_state_dict_sequential(model, factor, saved_dir, np_weight_data_type):
+    for idx, (name, param) in enumerate(model.state_dict().items(), start=1):
+        LOGGER.debug(f"Converting tensor {idx}: {name}")
+        convert_and_write_tensor(name, param, factor, saved_dir, np_weight_data_type)
+        if idx % 16 == 0:
+            gc.collect()
+
+
 def convert_checkpoint(args):
     saved_dir = Path(args.saved_dir) / f"{args.inference_tensor_para_size:d}-gpu"
     saved_dir.mkdir(parents=True, exist_ok=True)
     cache_dir = resolve_hf_cache_dir(args.cache_dir)
+    load_kwargs = get_from_pretrained_kwargs(cache_dir, args.local_files_only, args.low_cpu_mem_usage)
 
     if args.encoder_only:
         model = SwitchTransformersEncoderModel.from_pretrained(
             args.in_file,
-            resume_download=not args.local_files_only,
-            cache_dir=cache_dir,
-            local_files_only=args.local_files_only,
+            **load_kwargs,
         )
     else:
         if args.use_base_model:
@@ -214,9 +238,7 @@ def convert_checkpoint(args):
             print("Loading base model from:", args.in_file)
             base_model = SwitchTransformersForConditionalGeneration.from_pretrained(
                 args.in_file,
-                resume_download=not args.local_files_only,
-                cache_dir=cache_dir,
-                local_files_only=args.local_files_only,
+                **load_kwargs,
             )
             print("Loading adapter from:", args.use_base_model_path)
             
@@ -257,9 +279,7 @@ def convert_checkpoint(args):
             print("Loading model:", args.in_file)
             model = SwitchTransformersForConditionalGeneration.from_pretrained(
                 args.in_file,
-                resume_download=not args.local_files_only,
-                cache_dir=cache_dir,
-                local_files_only=args.local_files_only,
+                **load_kwargs,
             )
             print("model loaded over")
 
@@ -297,14 +317,8 @@ def convert_checkpoint(args):
     np_weight_data_type = get_weight_data_type(args.weight_data_type)
 
     i_gpu_num = args.inference_tensor_para_size
-
-    pool = multiprocessing.Pool(args.processes)
-    pool.starmap_async(split_and_convert_process,
-                       [(name, param.cpu().detach().numpy().astype(np_weight_data_type), i_gpu_num, saved_dir)
-                        for name, param in model.state_dict().items()])
-
-    pool.close()
-    pool.join()
+    convert_state_dict_sequential(model, i_gpu_num, saved_dir, np_weight_data_type)
+    gc.collect()
 
     if not args.encoder_only:
         fuse_decoder_qkv(model, i_gpu_num, saved_dir, np_weight_data_type)
@@ -322,11 +336,12 @@ if __name__ == "__main__":
     parser.add_argument("-inference_tensor_para_size", "-i_g", type=int, help="How many gpus for inference",
                         required=True)
     parser.add_argument("-processes", "-p", type=int, help="How many processes to spawn for conversion (default: 4)",
-                        default=4)
+                        default=1)
     parser.add_argument("-weight_data_type", type=str, default="fp32", choices=["fp32", "fp16"])
     parser.add_argument("--encoder_only", "-e", action="store_true")
     parser.add_argument("--cache_dir", type=str, default=None, help="HuggingFace cache directory")
     parser.add_argument("--local_files_only", action="store_true", help="Only load files from the local cache")
+    parser.add_argument("--low_cpu_mem_usage", action="store_true", help="Load HuggingFace weights with lower RAM usage")
     parser.add_argument("--verbose", action="store_true", help="Provide verbose messages")
     args = parser.parse_args()
     log_format = "%(asctime)s %(name)s [%(levelname)s] %(message)s"

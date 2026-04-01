@@ -1,3 +1,4 @@
+#include <cstdio>
 /*
  * Copyright (c) 2019-2023, NVIDIA CORPORATION.  All rights reserved.
  * Copyright (c) 2021, NAVER Corp.  Authored by CLOVA.

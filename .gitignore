@@ -1,21 +1,48 @@
-*~
-*.o
-*build*/
-./models/
+# Python
 __pycache__/
-.vscode
-.idea
-./translation
-.cache
-*.npy
-*.pth
-!tests/data/**/*.npy
-/models
-/notebooks
-**/.ipynb_checkpoints/
-docker_mount/
+*.pyc
+*.pyo
+*.pyd
 
-/3rdparty/NeMo/
-/3rdparty/apex/
+# Build
+build/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+Makefile
 
+# Logs
+logs/
 *.log
+.tmp_gemm.log
+
+# Local config
+cpp_config.ini
+.env
+untitled.txt
+
+# HuggingFace / cache / local data
+hf-cache/
+.cache/
+datasets/
+downloads/
+autodl-tmp/
+diff-moe-data/
+swapfile
+
+# Model files
+*.bin
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

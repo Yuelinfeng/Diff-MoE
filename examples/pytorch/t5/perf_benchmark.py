@@ -265,6 +265,7 @@ def translate(args_dict):
     layer_num = args_dict['layer_num']
     top_k_experts = args_dict['top_k_experts']
     fix_cache_size = args_dict['fix_cache_size']
+    max_samples = args_dict['max_samples']
     ## huggingface without bias and use relative position embedding
     ## relative position embedding -> 0, absolute position embedding -> 1
     t5_with_bias = False
@@ -484,48 +485,48 @@ def translate(args_dict):
     import pickle
     import hashlib
     def get_cached_dataset(dataset_name, max_samples=None):
-        """Get dataset with caching priority"""
-        # Create cache directory
-        cache_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dataset_cache")
+        import os
+        import pickle
+
+        cache_dir = os.path.join(os.path.dirname(__file__), ".cache")
         os.makedirs(cache_dir, exist_ok=True)
-        
-        # Create cache filename using dataset name hash
-        dataset_hash = hashlib.md5(dataset_name.encode()).hexdigest()
-        cache_file = os.path.join(cache_dir, f"{dataset_hash}_{max_samples if max_samples is not None else 'full'}.pkl")
-        
-        # Check if cache exists
+
+        safe_name = dataset_name.replace("/", "_")
+        cache_file = os.path.join(cache_dir, f"{safe_name}.pkl")
+
         if os.path.exists(cache_file):
-            print(f"Loading cached dataset from {cache_file}")
-            try:
-                with open(cache_file, 'rb') as f:
-                    return pickle.load(f)
-            except Exception as e:
-                print(f"Error loading cache: {e}")
-                # Continue with normal loading if cache loading fails
-        
-        # No cache or cache loading failed, load dataset normally
+            print(f"Loading dataset from cache: {cache_file}")
+            with open(cache_file, "rb") as f:
+                src_text = pickle.load(f)
+
+            if max_samples is None:
+                print(f"Using full cached dataset with {len(src_text)} samples")
+            else:
+                src_text = src_text[:max_samples]
+                print(f"Limited cached dataset to {len(src_text)} samples")
+
+            return src_text
+
         print(f"Loading dataset {dataset_name} and creating cache")
         dataset = Get_dataset(dataset_name)
-        
-        # Use full dataset if max_samples is None, otherwise limit the samples
+
         if max_samples is None:
-            src_text = dataset[:]  # Use full dataset
+            src_text = dataset[:]
             print(f"Using full dataset with {len(src_text)} samples")
         else:
             src_text = dataset[:max_samples]
             print(f"Limited dataset to {len(src_text)} samples")
-        
-        # Save to cache
+
         try:
-            with open(cache_file, 'wb') as f:
-                pickle.dump(src_text, f)
+            with open(cache_file, "wb") as f:
+                pickle.dump(dataset[:], f)
             print(f"Dataset cached to {cache_file}")
         except Exception as e:
             print(f"Error creating cache: {e}")
-        
+
         return src_text
     print("dataset_name = ", dataset_name)
-    src_text = get_cached_dataset(dataset_name)
+    src_text = get_cached_dataset(dataset_name, max_samples=max_samples)
     # src_text = Get_dataset(dataset_name)
     
     print("get dataset_name = ", dataset_name)

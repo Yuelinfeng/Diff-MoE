@@ -89,36 +89,29 @@ public:
         
         std::vector<std::vector<int>> experts;
         std::vector<int> current_row;
-        bool inside_row = false;
-        
+        int bracket_depth = 0;
+
         for (size_t i = 0; i < experts_str.length(); i++) {
             if (experts_str[i] == '[') {
-                if (inside_row) {
+                bracket_depth++;
+                if (bracket_depth == 2) {
                     current_row.clear();
-                } else {
-                    inside_row = true;
                 }
             }
             else if (experts_str[i] == ']') {
-                if (i + 1 < experts_str.length() && experts_str[i + 1] != ',') {
-                    if (!current_row.empty()) {
-                        experts.push_back(current_row);
-                    }
-                    inside_row = false;
+                if (bracket_depth == 2 && !current_row.empty()) {
+                    experts.push_back(current_row);
+                    current_row.clear();
                 }
-                else {
-                    if (!current_row.empty()) {
-                        experts.push_back(current_row);
-                        current_row.clear();
-                    }
+                if (bracket_depth > 0) {
+                    bracket_depth--;
                 }
             }
-            else if (experts_str[i] == ',') {
-                continue;
-            }
-            else if (inside_row && isdigit(experts_str[i])) {
+            else if (bracket_depth == 2 && isdigit(experts_str[i])) {
                 size_t pos = i;
-                while (pos < experts_str.length() && isdigit(experts_str[pos])) pos++;
+                while (pos < experts_str.length() && isdigit(experts_str[pos])) {
+                    pos++;
+                }
                 current_row.push_back(std::stoi(experts_str.substr(i, pos - i)));
                 i = pos - 1;
             }

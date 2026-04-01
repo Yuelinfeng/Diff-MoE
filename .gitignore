@@ -17,12 +17,12 @@ logs/
 *.log
 .tmp_gemm.log
 
-# Local config
+# Local config / notes
 cpp_config.ini
 .env
 untitled.txt
 
-# HuggingFace / cache / local data
+# HuggingFace / datasets / local cache
 hf-cache/
 .cache/
 datasets/
@@ -31,7 +31,7 @@ autodl-tmp/
 diff-moe-data/
 swapfile
 
-# Model files
+# Model / checkpoint artifacts
 *.bin
 *.safetensors
 *.pt
@@ -46,3 +46,4 @@ swapfile
 # OS
 .DS_Store
 Thumbs.db
+

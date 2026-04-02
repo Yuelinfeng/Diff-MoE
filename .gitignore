@@ -13,9 +13,9 @@ compile_commands.json
 Makefile
 
 # Logs
-logs/
-*.log
-.tmp_gemm.log
+#logs/
+#*.log
+#.tmp_gemm.log
 
 # Local config / notes
 cpp_config.ini

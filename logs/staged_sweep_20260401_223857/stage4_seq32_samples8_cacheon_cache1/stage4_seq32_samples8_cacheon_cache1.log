@@ -1,0 +1,560 @@
+/root/miniconda3/envs/diff-moe/lib/python3.10/site-packages/huggingface_hub/file_download.py:949: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+/root/miniconda3/envs/diff-moe/lib/python3.10/site-packages/transformers/models/t5/tokenization_t5.py:199: FutureWarning: This tokenizer was incorrectly instantiated with a model max length of 512 which will be corrected in Transformers v5.
+For now, this behavior is kept to avoid breaking backwards compatibility when padding/encoding with `truncation is True`.
+- Be aware that you SHOULD NOT rely on t5-base automatically truncating your input to 512 when padding/encoding.
+- If you want to encode/pad to sequences longer than 512 you can either instantiate this tokenizer with `model_max_length` or pass `max_length` when encoding/padding.
+- To avoid this warning, please instantiate this tokenizer with `model_max_length` set to your preferred value.
+  warnings.warn(
+You are using the legacy behaviour of the <class 'transformers.models.t5.tokenization_t5.T5Tokenizer'>. This means that tokens that come after special tokens will not be properly handled. We recommend you to read the related pull request available at https://github.com/huggingface/transformers/pull/24565
+[FT][INFO] T5EncoderOp.cc: topk = 1
+[WARNING] gemm_config.in is not found; using default GEMM algo
+arena_size: 7247757312
+encoder_fetcher_mode: 1
+decoder_fetcher_mode: 2
+profiling: 1
+detailed_timing: 0
+offload_path: /root/autodl-tmp/diff-moe-data/ft/switch-base-128/
+disk_offload: 0
+load_from_cpp: 1
+use_cache: 0
+quant_mode: 0
+vocab_size: 32128
+fetch_all: 0
+forced_num_experts: 0
+cache_policy: LFU
+cache_size: 1
+use_moe_cache: 1
+fix_cache_size: 0
+max_val: 2
+threshold: 1
+dec_in_cache: 0.4
+dec_out_cache: 0.2
+top_k_experts: [[0], [0], [0], [0], [0], [0]]
+[WARNING] gemm_config.in is not found; using default GEMM algo
+Reshaped top_k_experts into 6 layers with cache_size=1
+top_k_experts = [
+    [0],
+    [0],
+    [0],
+    [0],
+    [0],
+    [0],
+]
+model_path =  t5-base
+moe_layers_in_encoder:  [1, 3, 5, 7, 9, 11]
+
+=============== Argument ===============
+batch_size: 1
+beam_width: 1
+seq_len: 32
+input_seq_len: 0
+test_time: 3
+beam_search_diversity_rate: 0.0
+sampling_topk: 1
+sampling_topp: 0.0
+data_type: fp32
+load_data_type: fp32
+lib_path: /root/autodl-tmp/Diff-MoE/build/lib/libth_transformer.so
+model_path: None
+model: t5-base
+adapter_path: None
+tensor_para_size: 1
+pipeline_para_size: 1
+ckpt_path: /root/autodl-tmp/diff-moe-data/ft/switch-base-128
+model_type: Megatron-DeepSpeed
+warmup_iterations: 1
+iterations: 1
+duration: 0
+seed: 0
+skip_gemm: True
+dataset_name: EdinburghNLP/xsum
+cache_size: 1
+use_moe_cache: True
+fix_cache_size: 0
+top_k_experts: [[0], [0], [0], [0], [0], [0]]
+layer_num: 6
+max_samples: 8
+========================================
+load model from t5-base
+rank=  0
+Megatron-DeepSpeed encoder_config: T5Config {
+  "_name_or_path": "t5-base",
+  "architectures": [
+    "T5ForConditionalGeneration"
+  ],
+  "d_ff": 3072,
+  "d_kv": 64,
+  "d_model": 768,
+  "decoder_start_token_id": 0,
+  "dense_act_fn": "relu",
+  "dropout_rate": 0.1,
+  "eos_token_id": 1,
+  "feed_forward_proj": "relu",
+  "initializer_factor": 1.0,
+  "is_encoder_decoder": false,
+  "is_gated_act": false,
+  "layer_norm_epsilon": 1e-06,
+  "model_type": "t5",
+  "moe_layer_index": [
+    1,
+    3,
+    5,
+    7,
+    9,
+    11
+  ],
+  "n_positions": 512,
+  "num_decoder_layers": 12,
+  "num_experts": 128,
+  "num_heads": 12,
+  "num_layers": 12,
+  "output_past": true,
+  "pad_token_id": 0,
+  "relative_attention_max_distance": 128,
+  "relative_attention_num_buckets": 32,
+  "task_specific_params": {
+    "summarization": {
+      "early_stopping": true,
+      "length_penalty": 2.0,
+      "max_length": 200,
+      "min_length": 30,
+      "no_repeat_ngram_size": 3,
+      "num_beams": 4,
+      "prefix": "summarize: "
+    },
+    "translation_en_to_de": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to German: "
+    },
+    "translation_en_to_fr": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to French: "
+    },
+    "translation_en_to_ro": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to Romanian: "
+    }
+  },
+  "transformers_version": "4.31.0",
+  "use_cache": false,
+  "vocab_size": 32128
+}
+
+Megatron-DeepSpeed decoder_config: T5Config {
+  "_name_or_path": "t5-base",
+  "architectures": [
+    "T5ForConditionalGeneration"
+  ],
+  "d_ff": 3072,
+  "d_kv": 64,
+  "d_model": 768,
+  "decoder_start_token_id": 0,
+  "dense_act_fn": "relu",
+  "dropout_rate": 0.1,
+  "eos_token_id": 1,
+  "feed_forward_proj": "relu",
+  "initializer_factor": 1.0,
+  "is_decoder": true,
+  "is_encoder_decoder": false,
+  "is_gated_act": false,
+  "layer_norm_epsilon": 1e-06,
+  "model_type": "t5",
+  "moe_layer_index": [
+    1,
+    3,
+    5,
+    7,
+    9,
+    11
+  ],
+  "n_positions": 512,
+  "num_decoder_layers": 12,
+  "num_experts": 128,
+  "num_heads": 12,
+  "num_layers": 12,
+  "output_past": true,
+  "pad_token_id": 0,
+  "relative_attention_max_distance": 128,
+  "relative_attention_num_buckets": 32,
+  "task_specific_params": {
+    "summarization": {
+      "early_stopping": true,
+      "length_penalty": 2.0,
+      "max_length": 200,
+      "min_length": 30,
+      "no_repeat_ngram_size": 3,
+      "num_beams": 4,
+      "prefix": "summarize: "
+    },
+    "translation_en_to_de": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to German: "
+    },
+    "translation_en_to_fr": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to French: "
+    },
+    "translation_en_to_ro": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to Romanian: "
+    }
+  },
+  "transformers_version": "4.31.0",
+  "use_cache": true,
+  "vocab_size": 32128
+}
+
+[INFO] MPI is not available in this PyTorch build.
+[INFO] MPI is not available in this PyTorch build.
+[INFO] Load weights for encoder from CPP.
+[INFO] Load weights for decoding from CPP.
+perf_benchmark topk =  1
+[INFO] MPI is not available in this PyTorch build.
+[INFO] MPI is not available in this PyTorch build.
+Loaded FasterTransformer library from: /root/autodl-tmp/Diff-MoE/build/lib/libth_transformer.so
+dataset_name =  EdinburghNLP/xsum
+dataset_name =  EdinburghNLP/xsum
+Loading dataset from cache: /root/autodl-tmp/Diff-MoE/examples/pytorch/t5/.cache/EdinburghNLP_xsum.pkl
+Limited cached dataset to 8 samples
+get dataset_name =  EdinburghNLP/xsum
+perf_benchmark.py: task0
+perf_benchmark.py: 1/1
+len src_text =  8
+torch.Size([1, 131])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 192
+iter_num: 192
+average expert activated num: 1.000000
+cache_hit_num: 24
+cache hit rate: 0.125000
+Total events num: (NMB)192 (BLK)192 (MEM)192 (CMP)192
+NMB AVG: 0.347276 ms
+BLK AVG: 0.858708 ms
+MEM AVG: 0.883539 ms
+CMP AVG: 0.309699 ms
+Average cache hit rate: 0.464286
+MEM usage: 13718978560 13718978560 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+torch.Size([1, 126])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 192
+iter_num: 192
+average expert activated num: 1.000000
+cache_hit_num: 5
+cache hit rate: 0.026042
+Total events num: (NMB)192 (BLK)192 (MEM)192 (CMP)192
+NMB AVG: 0.185666 ms
+BLK AVG: 0.87065 ms
+MEM AVG: 0.8893 ms
+CMP AVG: 0.306573 ms
+Average cache hit rate: 0.518717
+MEM usage: 13718978560 13718978560 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+torch.Size([1, 107])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 192
+iter_num: 192
+average expert activated num: 1.000000
+cache_hit_num: 49
+cache hit rate: 0.255208
+Total events num: (NMB)192 (BLK)192 (MEM)192 (CMP)192
+NMB AVG: 0.183592 ms
+BLK AVG: 0.816116 ms
+MEM AVG: 0.835472 ms
+CMP AVG: 0.314787 ms
+Average cache hit rate: 0.706294
+MEM usage: 13718978560 13718978560 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+torch.Size([1, 119])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 192
+iter_num: 192
+average expert activated num: 1.000000
+cache_hit_num: 20
+cache hit rate: 0.104167
+Total events num: (NMB)192 (BLK)192 (MEM)192 (CMP)192
+NMB AVG: 0.182342 ms
+BLK AVG: 0.851584 ms
+MEM AVG: 0.86904 ms
+CMP AVG: 0.310231 ms
+Average cache hit rate: 0.651163
+MEM usage: 13718978560 13718978560 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+torch.Size([1, 82])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 192
+iter_num: 192
+average expert activated num: 1.000000
+cache_hit_num: 10
+cache hit rate: 0.052083
+Total events num: (NMB)192 (BLK)192 (MEM)192 (CMP)192
+NMB AVG: 0.176754 ms
+BLK AVG: 0.876201 ms
+MEM AVG: 0.889501 ms
+CMP AVG: 0.307706 ms
+Average cache hit rate: 0.736264
+MEM usage: 13721075712 13721075712 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+torch.Size([1, 80])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 138
+iter_num: 138
+average expert activated num: 1.000000
+cache_hit_num: 3
+cache hit rate: 0.021739
+Total events num: (NMB)138 (BLK)138 (MEM)138 (CMP)138
+NMB AVG: 0.249929 ms
+BLK AVG: 0.984294 ms
+MEM AVG: 1.0512 ms
+CMP AVG: 0.307557 ms
+Average cache hit rate: 0.548148
+MEM usage: 13721075712 13721075712 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+torch.Size([1, 136])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 192
+iter_num: 192
+average expert activated num: 1.000000
+cache_hit_num: 32
+cache hit rate: 0.166667
+Total events num: (NMB)192 (BLK)192 (MEM)192 (CMP)192
+NMB AVG: 0.176483 ms
+BLK AVG: 0.832172 ms
+MEM AVG: 0.847493 ms
+CMP AVG: 0.311528 ms
+Average cache hit rate: 0.575
+MEM usage: 13723172864 14931132416 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+torch.Size([1, 116])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 192
+iter_num: 192
+average expert activated num: 1.000000
+cache_hit_num: 54
+cache hit rate: 0.281250
+Total events num: (NMB)192 (BLK)192 (MEM)192 (CMP)192
+NMB AVG: 0.175254 ms
+BLK AVG: 0.773324 ms
+MEM AVG: 0.788772 ms
+CMP AVG: 0.311939 ms
+Average cache hit rate: 0.514493
+MEM usage: 14931132416 14931132416 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+perf_benchmark.py: task1
+perf_benchmark.py: 1/1
+len src_text =  8
+torch.Size([1, 131])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 192
+iter_num: 192
+average expert activated num: 1.000000
+cache_hit_num: 24
+cache hit rate: 0.125000
+Total events num: (NMB)192 (BLK)192 (MEM)192 (CMP)192
+NMB AVG: 0.18256 ms
+BLK AVG: 0.836035 ms
+MEM AVG: 0.854626 ms
+CMP AVG: 0.308879 ms
+Average cache hit rate: 0.583333
+MEM usage: 14931132416 14931132416 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+torch.Size([1, 126])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 192
+iter_num: 192
+average expert activated num: 1.000000
+cache_hit_num: 5
+cache hit rate: 0.026042
+Total events num: (NMB)192 (BLK)192 (MEM)192 (CMP)192
+NMB AVG: 0.18634 ms
+BLK AVG: 0.872959 ms
+MEM AVG: 0.895011 ms
+CMP AVG: 0.306198 ms
+Average cache hit rate: 0.524064
+MEM usage: 14931132416 14931132416 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+torch.Size([1, 107])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 192
+iter_num: 192
+average expert activated num: 1.000000
+cache_hit_num: 49
+cache hit rate: 0.255208
+Total events num: (NMB)192 (BLK)192 (MEM)192 (CMP)192
+NMB AVG: 0.184419 ms
+BLK AVG: 0.813231 ms
+MEM AVG: 0.831672 ms
+CMP AVG: 0.314416 ms
+Average cache hit rate: 0.72028
+MEM usage: 14931132416 14931132416 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+torch.Size([1, 119])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 192
+iter_num: 192
+average expert activated num: 1.000000
+cache_hit_num: 20
+cache hit rate: 0.104167
+Total events num: (NMB)192 (BLK)192 (MEM)192 (CMP)192
+NMB AVG: 0.18604 ms
+BLK AVG: 0.860372 ms
+MEM AVG: 0.881244 ms
+CMP AVG: 0.310476 ms
+Average cache hit rate: 0.622093
+MEM usage: 14931132416 14931132416 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+torch.Size([1, 82])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 192
+iter_num: 192
+average expert activated num: 1.000000
+cache_hit_num: 10
+cache hit rate: 0.052083
+Total events num: (NMB)192 (BLK)192 (MEM)192 (CMP)192
+NMB AVG: 0.186582 ms
+BLK AVG: 0.871127 ms
+MEM AVG: 0.88772 ms
+CMP AVG: 0.307605 ms
+Average cache hit rate: 0.697802
+MEM usage: 14933229568 14933229568 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+torch.Size([1, 80])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 138
+iter_num: 138
+average expert activated num: 1.000000
+cache_hit_num: 3
+cache hit rate: 0.021739
+Total events num: (NMB)138 (BLK)138 (MEM)138 (CMP)138
+NMB AVG: 0.195322 ms
+BLK AVG: 0.882882 ms
+MEM AVG: 0.896193 ms
+CMP AVG: 0.306755 ms
+Average cache hit rate: 0.57037
+MEM usage: 14933229568 14933229568 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+torch.Size([1, 136])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 192
+iter_num: 192
+average expert activated num: 1.000000
+cache_hit_num: 32
+cache hit rate: 0.166667
+Total events num: (NMB)192 (BLK)192 (MEM)192 (CMP)192
+NMB AVG: 0.190086 ms
+BLK AVG: 0.841747 ms
+MEM AVG: 0.862733 ms
+CMP AVG: 0.311788 ms
+Average cache hit rate: 0.58125
+MEM usage: 14933229568 14933229568 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+torch.Size([1, 116])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 192
+iter_num: 192
+average expert activated num: 1.000000
+cache_hit_num: 54
+cache hit rate: 0.281250
+Total events num: (NMB)192 (BLK)192 (MEM)192 (CMP)192
+NMB AVG: 0.180408 ms
+BLK AVG: 0.775173 ms
+MEM AVG: 0.793769 ms
+CMP AVG: 0.312297 ms
+Average cache hit rate: 0.478261
+MEM usage: 14933229568 14933229568 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+batch_num 8, time 3.711829
+[INFO] ft-sampling translates 8 batches taking 3.71 sec to translate 247 tokens (463.9786 ms per batch), 67 tokens/sec.

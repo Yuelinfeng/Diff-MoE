@@ -1,0 +1,7 @@
+Increase cache_size from 1 to 3 while keeping dummy experts to isolate cache-capacity effects.
+seq_len=32
+max_samples=8
+cache_size=3
+use_moe_cache=True
+fix_cache_size=1
+top_k_experts=0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0

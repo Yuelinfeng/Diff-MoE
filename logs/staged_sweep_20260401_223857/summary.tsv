@@ -1,0 +1,7 @@
+stage	seq_len	max_samples	cache_size	use_moe_cache	fix_cache_size	top_k_experts	log_file
+stage1_seq8_samples1_cacheoff	8	1	1	False	0	0,0,0,0,0,0	/root/autodl-tmp/Diff-MoE/logs/staged_sweep_20260401_223857/stage1_seq8_samples1_cacheoff/stage1_seq8_samples1_cacheoff.log
+stage2_seq32_samples1_cacheoff	32	1	1	False	0	0,0,0,0,0,0	/root/autodl-tmp/Diff-MoE/logs/staged_sweep_20260401_223857/stage2_seq32_samples1_cacheoff/stage2_seq32_samples1_cacheoff.log
+stage3_seq32_samples8_cacheoff	32	8	1	False	0	0,0,0,0,0,0	/root/autodl-tmp/Diff-MoE/logs/staged_sweep_20260401_223857/stage3_seq32_samples8_cacheoff/stage3_seq32_samples8_cacheoff.log
+stage4_seq32_samples8_cacheon_cache1	32	8	1	True	0	0,0,0,0,0,0	/root/autodl-tmp/Diff-MoE/logs/staged_sweep_20260401_223857/stage4_seq32_samples8_cacheon_cache1/stage4_seq32_samples8_cacheon_cache1.log
+stage5_seq32_samples8_cacheon_cache3_dummy	32	8	3	True	1	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0	/root/autodl-tmp/Diff-MoE/logs/staged_sweep_20260401_223857/stage5_seq32_samples8_cacheon_cache3_dummy/stage5_seq32_samples8_cacheon_cache3_dummy.log
+stage6_seq32_samples8_cacheon_cache3_realexperts	32	8	3	True	1	35,43,38,0,84,51,52,0,33,93,0,72,0,61,38,0,35,105	/root/autodl-tmp/Diff-MoE/logs/staged_sweep_20260401_223857/stage6_seq32_samples8_cacheon_cache3_realexperts/stage6_seq32_samples8_cacheon_cache3_realexperts.log

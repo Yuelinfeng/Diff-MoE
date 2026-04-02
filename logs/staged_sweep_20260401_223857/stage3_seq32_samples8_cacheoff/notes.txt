@@ -1,0 +1,7 @@
+Increase sample count from 1 to 8 to validate the longer steady-state baseline.
+seq_len=32
+max_samples=8
+cache_size=1
+use_moe_cache=False
+fix_cache_size=0
+top_k_experts=0,0,0,0,0,0

@@ -1,0 +1,7 @@
+Increase sequence length only from 8 to 32 while keeping the rest identical.
+seq_len=32
+max_samples=1
+cache_size=1
+use_moe_cache=False
+fix_cache_size=0
+top_k_experts=0,0,0,0,0,0

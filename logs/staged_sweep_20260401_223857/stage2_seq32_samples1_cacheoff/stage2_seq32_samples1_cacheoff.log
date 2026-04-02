@@ -1,0 +1,280 @@
+/root/miniconda3/envs/diff-moe/lib/python3.10/site-packages/huggingface_hub/file_download.py:949: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+/root/miniconda3/envs/diff-moe/lib/python3.10/site-packages/transformers/models/t5/tokenization_t5.py:199: FutureWarning: This tokenizer was incorrectly instantiated with a model max length of 512 which will be corrected in Transformers v5.
+For now, this behavior is kept to avoid breaking backwards compatibility when padding/encoding with `truncation is True`.
+- Be aware that you SHOULD NOT rely on t5-base automatically truncating your input to 512 when padding/encoding.
+- If you want to encode/pad to sequences longer than 512 you can either instantiate this tokenizer with `model_max_length` or pass `max_length` when encoding/padding.
+- To avoid this warning, please instantiate this tokenizer with `model_max_length` set to your preferred value.
+  warnings.warn(
+You are using the legacy behaviour of the <class 'transformers.models.t5.tokenization_t5.T5Tokenizer'>. This means that tokens that come after special tokens will not be properly handled. We recommend you to read the related pull request available at https://github.com/huggingface/transformers/pull/24565
+[FT][INFO] T5EncoderOp.cc: topk = 1
+[WARNING] gemm_config.in is not found; using default GEMM algo
+arena_size: 7247757312
+encoder_fetcher_mode: 1
+decoder_fetcher_mode: 2
+profiling: 1
+detailed_timing: 0
+offload_path: /root/autodl-tmp/diff-moe-data/ft/switch-base-128/
+disk_offload: 0
+load_from_cpp: 1
+use_cache: 0
+quant_mode: 0
+vocab_size: 32128
+fetch_all: 0
+forced_num_experts: 0
+cache_policy: LFU
+cache_size: 1
+use_moe_cache: 0
+fix_cache_size: 0
+max_val: 2
+threshold: 1
+dec_in_cache: 0.4
+dec_out_cache: 0.2
+top_k_experts: [[0], [0], [0], [0], [0], [0]]
+[WARNING] gemm_config.in is not found; using default GEMM algo
+Reshaped top_k_experts into 6 layers with cache_size=1
+top_k_experts = [
+    [0],
+    [0],
+    [0],
+    [0],
+    [0],
+    [0],
+]
+model_path =  t5-base
+moe_layers_in_encoder:  [1, 3, 5, 7, 9, 11]
+
+=============== Argument ===============
+batch_size: 1
+beam_width: 1
+seq_len: 32
+input_seq_len: 0
+test_time: 3
+beam_search_diversity_rate: 0.0
+sampling_topk: 1
+sampling_topp: 0.0
+data_type: fp32
+load_data_type: fp32
+lib_path: /root/autodl-tmp/Diff-MoE/build/lib/libth_transformer.so
+model_path: None
+model: t5-base
+adapter_path: None
+tensor_para_size: 1
+pipeline_para_size: 1
+ckpt_path: /root/autodl-tmp/diff-moe-data/ft/switch-base-128
+model_type: Megatron-DeepSpeed
+warmup_iterations: 1
+iterations: 1
+duration: 0
+seed: 0
+skip_gemm: True
+dataset_name: EdinburghNLP/xsum
+cache_size: 1
+use_moe_cache: False
+fix_cache_size: 0
+top_k_experts: [[0], [0], [0], [0], [0], [0]]
+layer_num: 6
+max_samples: 1
+========================================
+load model from t5-base
+rank=  0
+Megatron-DeepSpeed encoder_config: T5Config {
+  "_name_or_path": "t5-base",
+  "architectures": [
+    "T5ForConditionalGeneration"
+  ],
+  "d_ff": 3072,
+  "d_kv": 64,
+  "d_model": 768,
+  "decoder_start_token_id": 0,
+  "dense_act_fn": "relu",
+  "dropout_rate": 0.1,
+  "eos_token_id": 1,
+  "feed_forward_proj": "relu",
+  "initializer_factor": 1.0,
+  "is_encoder_decoder": false,
+  "is_gated_act": false,
+  "layer_norm_epsilon": 1e-06,
+  "model_type": "t5",
+  "moe_layer_index": [
+    1,
+    3,
+    5,
+    7,
+    9,
+    11
+  ],
+  "n_positions": 512,
+  "num_decoder_layers": 12,
+  "num_experts": 128,
+  "num_heads": 12,
+  "num_layers": 12,
+  "output_past": true,
+  "pad_token_id": 0,
+  "relative_attention_max_distance": 128,
+  "relative_attention_num_buckets": 32,
+  "task_specific_params": {
+    "summarization": {
+      "early_stopping": true,
+      "length_penalty": 2.0,
+      "max_length": 200,
+      "min_length": 30,
+      "no_repeat_ngram_size": 3,
+      "num_beams": 4,
+      "prefix": "summarize: "
+    },
+    "translation_en_to_de": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to German: "
+    },
+    "translation_en_to_fr": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to French: "
+    },
+    "translation_en_to_ro": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to Romanian: "
+    }
+  },
+  "transformers_version": "4.31.0",
+  "use_cache": false,
+  "vocab_size": 32128
+}
+
+Megatron-DeepSpeed decoder_config: T5Config {
+  "_name_or_path": "t5-base",
+  "architectures": [
+    "T5ForConditionalGeneration"
+  ],
+  "d_ff": 3072,
+  "d_kv": 64,
+  "d_model": 768,
+  "decoder_start_token_id": 0,
+  "dense_act_fn": "relu",
+  "dropout_rate": 0.1,
+  "eos_token_id": 1,
+  "feed_forward_proj": "relu",
+  "initializer_factor": 1.0,
+  "is_decoder": true,
+  "is_encoder_decoder": false,
+  "is_gated_act": false,
+  "layer_norm_epsilon": 1e-06,
+  "model_type": "t5",
+  "moe_layer_index": [
+    1,
+    3,
+    5,
+    7,
+    9,
+    11
+  ],
+  "n_positions": 512,
+  "num_decoder_layers": 12,
+  "num_experts": 128,
+  "num_heads": 12,
+  "num_layers": 12,
+  "output_past": true,
+  "pad_token_id": 0,
+  "relative_attention_max_distance": 128,
+  "relative_attention_num_buckets": 32,
+  "task_specific_params": {
+    "summarization": {
+      "early_stopping": true,
+      "length_penalty": 2.0,
+      "max_length": 200,
+      "min_length": 30,
+      "no_repeat_ngram_size": 3,
+      "num_beams": 4,
+      "prefix": "summarize: "
+    },
+    "translation_en_to_de": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to German: "
+    },
+    "translation_en_to_fr": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to French: "
+    },
+    "translation_en_to_ro": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to Romanian: "
+    }
+  },
+  "transformers_version": "4.31.0",
+  "use_cache": true,
+  "vocab_size": 32128
+}
+
+[INFO] MPI is not available in this PyTorch build.
+[INFO] MPI is not available in this PyTorch build.
+[INFO] Load weights for encoder from CPP.
+[INFO] Load weights for decoding from CPP.
+perf_benchmark topk =  1
+[INFO] MPI is not available in this PyTorch build.
+[INFO] MPI is not available in this PyTorch build.
+Loaded FasterTransformer library from: /root/autodl-tmp/Diff-MoE/build/lib/libth_transformer.so
+dataset_name =  EdinburghNLP/xsum
+dataset_name =  EdinburghNLP/xsum
+Loading dataset from cache: /root/autodl-tmp/Diff-MoE/examples/pytorch/t5/.cache/EdinburghNLP_xsum.pkl
+Limited cached dataset to 1 samples
+get dataset_name =  EdinburghNLP/xsum
+perf_benchmark.py: task0
+perf_benchmark.py: 1/1
+len src_text =  1
+torch.Size([1, 131])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 192
+iter_num: 192
+average expert activated num: 1.000000
+cache_hit_num: 0
+cache hit rate: 0.000000
+Total events num: (NMB)192 (BLK)192 (MEM)192 (CMP)192
+NMB AVG: 0.464428 ms
+BLK AVG: 1.03175 ms
+MEM AVG: 1.14777 ms
+CMP AVG: 0.311181 ms
+Average cache hit rate: 0.625
+MEM usage: 13593149440 13593149440 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+perf_benchmark.py: task1
+perf_benchmark.py: 1/1
+len src_text =  1
+torch.Size([1, 131])
+===== ft encoder forward start
+===== ft encoder forward finished
+===== ft decoder forward start
+activated_expert_num: 192
+iter_num: 192
+average expert activated num: 1.000000
+cache_hit_num: 0
+cache hit rate: 0.000000
+Total events num: (NMB)192 (BLK)192 (MEM)192 (CMP)192
+NMB AVG: 0.176672 ms
+BLK AVG: 0.947273 ms
+MEM AVG: 0.946435 ms
+CMP AVG: 0.306615 ms
+Average cache hit rate: 0.994792
+MEM usage: 13595246592 13595246592 
+Max active experts: 1
+Average active experts: 1
+===== ft decoder forward finished
+One round finished
+batch_num 1, time 0.515079
+[INFO] ft-sampling translates 1 batches taking 0.52 sec to translate 32 tokens (515.0790 ms per batch), 62 tokens/sec.

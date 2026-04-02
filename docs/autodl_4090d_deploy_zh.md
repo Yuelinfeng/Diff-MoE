@@ -313,3 +313,46 @@ nvidia-smi
 - 比 5090 + 31G DRAM 更适合跑 `switch-base-128`
 - 仍建议先从最小 smoke test 开始
 - 确认跑通后再逐步放大参数
+
+## 成功跑通
+
+环境记录：
+
+```
+(diff-moe) root@autodl-container-29624ca317-e1371648:~/autodl-tmp/Diff-MoE/build# cd ~/autodl-tmp/Diff-MoE
+
+python -c "import torch; print(torch.__version__, torch.version.cuda); print(torch.cuda.get_device_name(0)); print(torch.cuda.get_device_capability(0)); print(torch.cuda.is_available())"
+nvidia-smi
+nvcc --version
+git rev-parse --short HEAD
+2.7.0+cu128 12.8
+NVIDIA GeForce RTX 4090 D
+(8, 9)
+True
+Wed Apr  1 22:12:50 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.120                Driver Version: 550.120        CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 4090 D      Off |   00000000:CF:00.0 Off |                  Off |
+| 30%   25C    P8             17W /  425W |       2MiB /  24564MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2024 NVIDIA Corporation
+Built on Thu_Mar_28_02:18:24_PDT_2024
+Cuda compilation tools, release 12.4, V12.4.131
+Build cuda_12.4.r12.4/compiler.34097967_0
+ffbc022
+```

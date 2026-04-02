@@ -666,6 +666,17 @@ def translate(args_dict):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
+    def parse_bool(value):
+        if isinstance(value, bool):
+            return value
+
+        normalized = value.strip().lower()
+        if normalized in ("1", "true", "t", "yes", "y", "on"):
+            return True
+        if normalized in ("0", "false", "f", "no", "n", "off"):
+            return False
+        raise argparse.ArgumentTypeError(f"Invalid boolean value: {value}")
+
     def parse_experts_list(input_str):
         """Parse comma-separated expert list, e.g., "43,116,24,0,0,0,87,66,125,..."
         and split into 2D array based on cache_size"""
@@ -750,7 +761,7 @@ if __name__ == "__main__":
                         help='dataset name.')
     parser.add_argument('-cache_size', '--cache_size', type=int, default=6, metavar='NUMBER',
                         help='Cache size for each expert layer')
-    parser.add_argument('-use_moe_cache', '--use_moe_cache', type=bool, default=True, metavar='BOOL',
+    parser.add_argument('-use_moe_cache', '--use_moe_cache', type=parse_bool, default=True, metavar='BOOL',
                         help='Whether to use cache for the expert priority.')
     parser.add_argument('-fix_cache_size', '--fix_cache_size', type=int, default=6, metavar='NUMBER',
                         help='Cache size for the expert priority.')

@@ -45,7 +45,7 @@ Although the decoding process of most methods is similar, we find that there are
 
 Fig 1 demonstrates the workflow of FasterTransformer Decoder and Decoding. They receive some results from encoder as the inputs of CrossAttention, using the start ids or the generated ids of previous step as the inputs of Decoding and generates the respective output ids as response.
 
-<div align=center><img  width='600' src ="images/decoding/decoding.png "/></div>
+<div align=center><img  width='600' src ="../images/decoding/decoding.png "/></div>
 <div align=center>Fig. 1 Flowchart of Decoding and GPT.</div>
 
 The following examples demonstrating how to run multi-GPU and multi-node GPT model.

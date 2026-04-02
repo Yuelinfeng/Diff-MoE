@@ -38,10 +38,10 @@ Our implementation is aligned with OpenSource PyTorch implementation [ViT Github
       - [INT8 vs. FP16 speedup on ViT:](#int8-vs-fp16-speedup-on-vit)
 
 ## Computation Flow
-<div align=center><img width=80% src ="images/vit/vit-fp32-fp16-compute-flow.png"/></div>
+<div align=center><img width=80% src ="../images/vit/vit-fp32-fp16-compute-flow.png"/></div>
 <div align=center>Fig. 1 Flowchart of FP16/FP32 ViT.</div>
 
-<div align=center><img width=80% src ="images/vit/vit-FMHA.png"/></div>
+<div align=center><img width=80% src ="../images/vit/vit-FMHA.png"/></div>
 <div align=center>Fig. 2 Flowchart of INT8 ViT (with fused MHA and quant_mode='ft2').</div>
 
 ## Demo

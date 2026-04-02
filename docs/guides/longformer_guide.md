@@ -36,7 +36,7 @@ Currently in FasterTransformer, only the Encoder part of longformer is implement
 
 ## Longformer Encoder Computation Flow
 
-<div align=center><img  width='864' height='1067' src ="images/longformer_compute_flow.png"/></div>
+<div align=center><img  width='864' height='1067' src ="../images/longformer_compute_flow.png"/></div>
 <div align=center>Fig. 1 Flowchart of Longformer.</div>
 
 ## Demo

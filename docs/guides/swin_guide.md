@@ -67,10 +67,10 @@ Our implementation is aligned with the official PyTorch implementation [Swin-Tra
       - [INT8 vs. FP16 speedup of Swin-V2:](#int8-vs-fp16-speedup-of-swin-v2-2)
 
 ## Swin-Transformer Computation Flow
-<div align=center><img width=80% src ="images/FP-swin-flowchart.png"/></div>
+<div align=center><img width=80% src ="../images/FP-swin-flowchart.png"/></div>
 <div align=center>Fig. 1 Flowchart of FP16/FP32 Swin-Transformer.</div>
 
-<div align=center><img width=80% src ="images/INT8-swin-flowchart.png"/></div>
+<div align=center><img width=80% src ="../images/INT8-swin-flowchart.png"/></div>
 <div align=center>Fig. 2 Flowchart of INT8 Swin-Transformer (with fused MHA and int8-mode=1).</div>
 
 ## Demo

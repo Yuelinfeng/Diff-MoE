@@ -22,7 +22,7 @@ This FasterTransformer XLNet implementation is aligned with [XLNet Github](https
     - [FP16](#fp16)
 
 ## XLNet Encoder Computation Flow
-<div align=center><img  width='864' height='864' src ="images/xlnet_flowchart.png"/></div>
+<div align=center><img  width='864' height='864' src ="../images/xlnet_flowchart.png"/></div>
 <div align=center>Fig. 1 Flowchart of XLNet.</div>
 
 ## Demo

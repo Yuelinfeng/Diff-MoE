@@ -48,7 +48,7 @@ The following configurations are supported in the FasterTransformer encoder.
 
 In the FasterTransformer v1.0, we provide a highly optimized BERT-equivalent encoder model. Next, based on the idea of [Effective Transformer](https://github.com/bytedance/effective_transformer), we further optimize BERT inference by removing the useless padding in FasterTransformer v2.1 and provide the Effective FasterTransformer. In FasterTransformer v3.0, we provide INT8 quantization inference to get better performance. In FasterTransformer v3.1, we optimize the INT8 kernels to improve the performance of INT8 inference and integrate the multi-head attention of TensorRT plugin into FasterTransformer. In FasterTransformer v4.0, we add the multi-head attention kernel to support FP16 on V100 and INT8 on T4, A100. The following graph demonstrates the flow chart of these optimization, except INT8. In FasterTransformer v5.0, we refactor the codes, encapsulating the mask building and padding removing into the Bert forward function, and add the sparsity feature of Ampere GPU to accelerate the GEMM. In FasterTransformer v5.1, we support multi-node multi-GPU inference on Bert FP16.
  
-<div align=center><img  width='864' height='1067' src ="images/encoder_flowchart.png"/></div>
+<div align=center><img  width='864' height='1067' src ="../images/encoder_flowchart.png"/></div>
 <div align=center>Fig. 1 Flowchart of encoder.</div>
 <br/><br/>
 
@@ -58,7 +58,7 @@ For Effective FasterTransformer, the main idea is removing the padding of senten
 
 To further improve the performance of multi head attention, we integrate the multi-head attention of TensorRT, which fuses the whole attention computing into one kernel. The source codes are [here]( https://github.com/NVIDIA/TensorRT/tree/master/plugin/bertQKVToContextPlugin). This kernel supports Effective FasterTransformer and standard BERT model at the same time. The third and forth flowcharts in Fig. 1 shows the workflow. With such kernel, we do not worry the padding issue multi-head attention. This kernel requires another offset, which is also show in Fig. 2.
 
-<div align=center><img  src ="images/effective_transformer.png"/></div>
+<div align=center><img  src ="../images/effective_transformer.png"/></div>
 <div align=center>Fig. 2 Effective Transformer.</div>
 <br/><br/>
 
@@ -108,7 +108,7 @@ Besides, notice that the multi-head attention kernel from TensorRT is powerful b
 
 In FasterTransformer v4.0, we implement two pipelines of INT8 inference, as shown in Fig. 3. For int8_mode == 1 (int8v1), we don't quantize residual connection, use int32 as the output of int8 gemms and use per-channel quantization for weights. For int8_mode == 2 (int8v2), we quantize residual connection, use int8 as the output of int8 gemms and use per-tensor quantization for weights. Generally speaking, int8_mode == 1 will have higher accuracy while int8_mode == 2 will have better performance.
 
-<div align=center><img width='864' height='560' src ="images/workflow-of-int8-inference.png"/></div>
+<div align=center><img width='864' height='560' src ="../images/workflow-of-int8-inference.png"/></div>
 <div align=center>Fig. 3 Workflow of int8 inference.</div>
 <br/><br/>
 

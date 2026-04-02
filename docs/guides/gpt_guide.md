@@ -88,7 +88,7 @@ GPT is a variant of Decoding model, which does not have the encoder module, cros
 
 ### Workflow
 
-<div align=center><img width=600 src ="images/gpt/gpt.png "/></div>
+<div align=center><img width=600 src ="../images/gpt/gpt.png "/></div>
 <div align=center> Fig 1. Workflow of GPT model.</div>
 <br/><br/>
 
@@ -97,8 +97,8 @@ Fig 1 demonstrates the workflow of FasterTransformer GPT. Different from BERT an
 FasterTransformer splits the whole workflow into 2 parts. The first one is “computing the k/v cache of context (input ids), and the second part is “auto-regressive generating the output ids”. The operations of these two parts are similar, but the shapes of tensors in the `SelfAttention` is different. So, we use 2 different implementations to handle two different cases, as demonstrating in Fig 2. In `DecoderSelfAttention`, the sequence length of query is always 1, so we used customed fused masked multi-head attention kernel to handle. On the other hand, the sequence length of query in the `ContextSelfAttention` is maximum input length, so we use cuBLAS to leverage the tensor core.
 
 <div align=center>
-  <img width=400 src ="images/gpt/gpt_context.png "/> &ensp;&ensp;&ensp;&ensp;&ensp;
-  <img width=400 src ="images/gpt/parallelgpt.png "/>
+  <img width=400 src ="../images/gpt/gpt_context.png "/> &ensp;&ensp;&ensp;&ensp;&ensp;
+  <img width=400 src ="../images/gpt/parallelgpt.png "/>
 </div>
 <div align=center>
   Fig 2. Comparison between different self attention. &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
@@ -636,7 +636,7 @@ You need to convert the Huggingface Meta Opt models to fastertransformer format 
     Then, set the `int8_mode` to `2` in `examples/cpp/gpt/gpt_config.ini` and run `bin/multi_gpu_gpt_example`. Note that this optimization only supports OPT with pre-layernorm (`opt-pre`).
 
     <div align=center>
-    <img width=600 src ="images/gpt/SmoothQuant_workflow.png "/> &ensp;&ensp;&ensp;&ensp;&ensp;
+    <img width=600 src ="../images/gpt/SmoothQuant_workflow.png "/> &ensp;&ensp;&ensp;&ensp;&ensp;
     </div>
     <div align=center>
     Fig 4. SmoothQuant workflow.
@@ -1041,7 +1041,7 @@ Notes:
 #### Interactive generation
 
 <div align=center>
-  <img width=1000 src ="images/gpt/gpt_interactive_generation.0.png "/> &ensp;&ensp;&ensp;&ensp;&ensp;
+  <img width=1000 src ="../images/gpt/gpt_interactive_generation.0.png "/> &ensp;&ensp;&ensp;&ensp;&ensp;
 </div>
 <div align=center>
   Fig 5. GPT generate some outputs by some inputs
@@ -1049,7 +1049,7 @@ Notes:
 <br/><br/>
 
 <div align=center>
-  <img width=600 src ="images/gpt/gpt_interactive_generation.1.png "/> &ensp;&ensp;&ensp;&ensp;&ensp;
+  <img width=600 src ="../images/gpt/gpt_interactive_generation.1.png "/> &ensp;&ensp;&ensp;&ensp;&ensp;
 </div>
 <div align=center>
   Fig 6. New inputs with previous texts and some additional new input ids.
@@ -1059,7 +1059,7 @@ Notes:
 In some scenarios (like chatting), the new requests are related to previous requests. Currently, users can pass all previous inputs and outputs as a new inputs into FT to make FT generate new reply from these previous texts, like what we see in Fig 5 and Fig 6. However, this means that we need to re-compute the k/v cache of all previous inputs and outputs again, which is time wasting when the context is very long.
 
 <div align=center>
-  <img width=1000 src ="images/gpt/gpt_interactive_generation.2.png "/> &ensp;&ensp;&ensp;&ensp;&ensp;
+  <img width=1000 src ="../images/gpt/gpt_interactive_generation.2.png "/> &ensp;&ensp;&ensp;&ensp;&ensp;
 </div>
 <div align=center>
   Fig 7. The workflow of generation with interactive generation
@@ -1142,19 +1142,19 @@ We demonstrate the inference time of Megatron and FasterTransformer on Triton, a
 
 TP means tensor parallelism, PP means pipeline parallelism.
 
-<div align=center><img width=800 src ="images/gpt/Megatron_530B_benchmark_1.png "/></div>
+<div align=center><img width=800 src ="../images/gpt/Megatron_530B_benchmark_1.png "/></div>
 <div align=center> Fig 8. Latency on input length 60, output length 20. TP means tensor parallelism and PP means pipeline parallelism. </div>
 <br/><br/>
 
-<div align=center><img width=800 src ="images/gpt/Megatron_530B_benchmark_2.png "/></div>
+<div align=center><img width=800 src ="../images/gpt/Megatron_530B_benchmark_2.png "/></div>
 <div align=center> Fig 9. Throughput per GPU on input length 60, output length 20. TP means tensor parallelism and PP means pipeline parallelism. </div>
 <br/><br/>
 
-<div align=center><img width=800 src ="images/gpt/Megatron_530B_benchmark_3.png "/></div>
+<div align=center><img width=800 src ="../images/gpt/Megatron_530B_benchmark_3.png "/></div>
 <div align=center> Fig 10. Latency on fixing output length 20, 16 ways tensor parallelism, different input length and batch size. </div>
 <br/><br/>
 
-<div align=center><img width=800 src ="images/gpt/Megatron_530B_benchmark_4.png "/></div>
+<div align=center><img width=800 src ="../images/gpt/Megatron_530B_benchmark_4.png "/></div>
 <div align=center> Fig 11. Latency on fixing input length 128, 16 ways tensor parallelism, different output length and batch size. </div>
 <br/><br/>
 

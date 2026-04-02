@@ -588,35 +588,36 @@ def translate(args_dict):
                 elif translation_result_list[i].frame_work == "FT": # select this branch
                     tmp_beam_size = beam_size
                     import csv
+                    def to_word_list_format(word_dict, tokenizer):
+                        flat_ids = []
+                        offsets = []
+                        for word_dict_item in word_dict:
+                            item_flat_ids = []
+                            item_offsets = []
+
+                            words = list(csv.reader(word_dict_item))[0]
+                            for word in words:
+                                ids = tokenizer.encode(word, add_special_tokens=False)
+
+                                if len(ids) == 0:
+                                    continue
+
+                                item_flat_ids += ids
+                                item_offsets.append(len(ids))
+
+                            flat_ids.append(np.array(item_flat_ids))
+                            offsets.append(np.cumsum(np.array(item_offsets)))
+
+                        pad_to = max(1, max(len(ids) for ids in flat_ids))
+
+                        for i, (ids, offs) in enumerate(zip(flat_ids, offsets)):
+                            flat_ids[i] = np.pad(ids, (0, pad_to - len(ids)), constant_values=0)
+                            offsets[i] = np.pad(offs, (0, pad_to - len(offs)), constant_values=-1)
+
+                        return np.array([flat_ids, offsets], dtype="int32").transpose((1, 0, 2))
+
                     if translation_result_list[i].name.find("sampling") != -1:
                         tmp_beam_size = 1
-                        def to_word_list_format(word_dict, tokenizer):
-                            flat_ids = []
-                            offsets = []
-                            for word_dict_item in word_dict:
-                                item_flat_ids = []
-                                item_offsets = []
-
-                                words = list(csv.reader(word_dict_item))[0]
-                                for word in words:
-                                    ids = tokenizer.encode(word, add_special_tokens=False)
-
-                                    if len(ids) == 0:
-                                        continue
-
-                                    item_flat_ids += ids
-                                    item_offsets.append(len(ids))
-
-                                flat_ids.append(np.array(item_flat_ids))
-                                offsets.append(np.cumsum(np.array(item_offsets)))
-
-                            pad_to = max(1, max(len(ids) for ids in flat_ids))
-
-                            for i, (ids, offs) in enumerate(zip(flat_ids, offsets)):
-                                flat_ids[i] = np.pad(ids, (0, pad_to - len(ids)), constant_values=0)
-                                offsets[i] = np.pad(offs, (0, pad_to - len(offs)), constant_values=-1)
-
-                            return np.array([flat_ids, offsets], dtype="int32").transpose((1, 0, 2))
                     stop_words_text = np.array([["Chef"]] * len(input_texts), dtype=object)
                     stop_words_list = to_word_list_format(stop_words_text, tokenizer)
                     stop_words_list = torch.Tensor(stop_words_list).to(torch.int32).to("cuda").contiguous()
